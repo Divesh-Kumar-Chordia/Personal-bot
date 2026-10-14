@@ -1,4 +1,4 @@
-import { pgTable, serial, text, timestamp } from "drizzle-orm/pg-core";
+import { pgTable, serial, text, timestamp , integer } from "drizzle-orm/pg-core";
 
 export const users = pgTable("users", {
   id: serial("id").primaryKey(),
@@ -13,6 +13,7 @@ export const posts = pgTable("posts", {
   content: text("content"),
   authorId: serial("author_id").references(() => users.id),
   createdAt: timestamp("created_at").defaultNow().notNull(),
+  credits: integer("credits").default(5),
 });
 
 export type User = typeof users.$inferSelect;
